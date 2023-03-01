@@ -14,12 +14,11 @@
 <% end %>
 
 <br>
-<%= link_to "Delete product",
-  product_path(@product),
-  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-%>
+<%= button_to "Delete product", @product, method: :delete if policy(@product).destroy? %>
 <br>
-<%= link_to("Edit product", edit_product_path(@product.id)) %>
+<% if policy(@product).edit? %>
+  <%= link_to("Edit product", edit_product_path(@product.id)) %>
+<% end %>
 <br>
 <%= link_to("Back to products", products_path) %>
 <br>
