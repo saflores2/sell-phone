@@ -22,4 +22,4 @@
 <br>
 <%= link_to("Back to products", products_path) %>
 <br>
-<%= link_to("Buy product", product_registers_path(@product.id), method: :post) %>
+<%= link_to "Buy product", product_registers_path(@product.id), data: { turbo_method: "post" } %>
