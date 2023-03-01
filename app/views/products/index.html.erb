@@ -7,4 +7,7 @@
 </ul>
 
 <%= link_to("New product", new_product_path) %>
-<%= link_to("My products", my_products_products_path) %>
+<br>
+<% if @products.where(user_id: current_user.id).size > 0 %>
+  <%= link_to("My products", my_products_products_path) %>
+<% end %>
