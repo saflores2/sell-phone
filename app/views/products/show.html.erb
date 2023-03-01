@@ -13,5 +13,14 @@
   <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
 <% end %>
 
+<br>
+<%= link_to "Delete product",
+  product_path(@product),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+%>
+<br>
 <%= link_to("Edit product", edit_product_path(@product.id)) %>
+<br>
 <%= link_to("Back to products", products_path) %>
+<br>
+<%= link_to("Buy product", product_registers_path(@product.id)) %>
