@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Pago</h1>
+    <%= simple_form_for (@register) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :year %>
+    <%= f.input :brand %>
+    <%= f.input :model %>
+
+    <%= f.submit %>
+  <% end %>
+
+  <%= link_to("Back to register", register_path) %>
+
+</div>
