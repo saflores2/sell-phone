@@ -40,6 +40,7 @@ class ProductsController < ApplicationController
   end
 
   def my_products
+    @products = Product.where(user_id: current_user.id)
   end
 
   private
