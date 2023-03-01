@@ -23,4 +23,4 @@
 <br>
 <%= link_to("Back to products", products_path) %>
 <br>
-<%= link_to("Buy product", product_registers_path(@product.id)) %>
+<%= link_to("Buy product", product_registers_path(@product.id), method: :post) %>
