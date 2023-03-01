@@ -1,1 +1,12 @@
-<h1>Mis registros</h1>
+<h1>Mis solicitudes de compra</h1>
+<ul>
+  <% @registers.each do |reg| %>
+    <li><%= reg.product.name%> $<%= reg.product.price%> <%= reg.created_at%> Estado: <%= reg.status%></li>
+    <% if reg.status == "solicitado" %>
+      <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch) %> <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch) %>
+    <% end %>
+  <% end %>
+</ul>
+
+<br>
+<%= link_to("Back to products", products_path) %>
