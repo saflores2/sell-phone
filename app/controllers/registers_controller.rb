@@ -2,14 +2,14 @@ class RegistersController < ApplicationController
   def create
     @register = Register.new
     @register.user = current_user
-    @register.product = Register.find(params[:product])
-    @register.save
-    # redirect_to payment_register_path(@register.id) if
+    @register.product = Product.find(params[:product_id])
+    @register.status = "solicitado"
+    redirect_to payment_register_path(@register.id) if @register.save
   end
 
   def update
     @register = Register.find(params[:id])
-    @register.status = ""
+    @register.status = "comprado"
     redirect_to register_path(@register)
   end
 
@@ -23,6 +23,6 @@ class RegistersController < ApplicationController
   end
 
   def my_registers
-    @registers = Register.all
+    @registers = Register.where(@register.user = user_id)
   end
 end
