@@ -14,7 +14,12 @@
   <ul class="list-group">
     <% @registers.each do |reg| %>
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= reg.product.name%> $<%= reg.product.price%> <%= reg.created_at%> Estado: <%= reg.status%>
+        <%= reg.product.name%> $<%= reg.product.price%>
+        <%= reg.created_at%>
+        Estado de solicitud: <%= reg.status%>
+        <% if reg.product.available == false && reg.status == "pagado" %>
+          <%= "Payment completed" %>
+        <% end %>
         <% if reg.status == "solicitado" %>
           <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch, class: :"btn btn-primary") %>
           <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch, class: :"btn btn-primary") %>
