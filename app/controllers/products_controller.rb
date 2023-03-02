@@ -4,7 +4,11 @@ class ProductsController < ApplicationController
 
   def index
     # @products = Product.all
-    @products = policy_scope(Product)
+    if params[:query].present?
+      @products = policy_scope(Product.global_search(params[:query]))
+    else
+      @products = policy_scope(Product)
+    end
   end
 
   def new

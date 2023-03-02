@@ -1,23 +1,46 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
-<ul>
-  <% @products.where(available: true).each do |product| %>
-    <li><%= link_to(product.name, product_path(product.id)) %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="col-12 my-3">
 
-<%= link_to("New product", new_product_path) %>
-<br>
-<% if user_signed_in? %>
-  <% if @products.where(user_id: current_user.id).size > 0 %>
-    <%= link_to("My products", my_products_products_path) %>
-  <% end %>
-<% end %>
-<br>
-<%# si no inicio sesión no puedeo ejecutar current_user.id %>
-<% if user_signed_in? %>
-  <% if @products.where(user_id: current_user.id).size > 0 %>
-    <%= link_to("Mis solicitudes de compra", my_registers_registers_path) %>
-  <% end %>
-<% end %>
-<br>
+    <%= form_with url: products_path, method: :get, class: "d-flex mt-3" do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find a product"
+      %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+
+    <div class="d-flex justify-content-between mt-3">
+      <%= link_to "New product", new_product_path, class: "btn btn-primary" %>
+      <% if user_signed_in? %>
+        <% if @products.where(user_id: current_user.id).size > 0 %>
+          <%= link_to "My products", my_products_products_path, class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <%# si no inicio sesión no puedeo ejecutar current_user.id %>
+      <% if user_signed_in? %>
+        <% if @products.where(user_id: current_user.id).size > 0 %>
+          <%= link_to "My purchase requests", my_registers_registers_path, class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+    </div>
+
+
+    <% @products.where(available: true).each do |product| %>
+      <%= link_to product_path(product.id), style: "text-decoration:none; color:inherit;" do %>
+        <div class="card-product mt-3" <% link_to("hola", product_path(product.id)) %>>
+          <% if product.photos.size == 0 %>
+            <img src="https://www.pngarts.com/files/4/Phone-PNG-Pic.png" />
+          <% else %>
+            <%= cl_image_tag product.photos.first.key %>
+          <% end %>
+          <div class="card-product-infos">
+            <h2><%= product.name %></h2>
+            <p>Model: <%= product.model %> brand: <%= product.brand %> Price: $<%= product.price %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
