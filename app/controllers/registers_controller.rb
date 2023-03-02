@@ -9,25 +9,22 @@ class RegistersController < ApplicationController
     redirect_to payment_register_path(@register.id) if @register.save
   end
 
-  # def update
-  #   @register = Register.find(params[:id])
-  #   @register.status = "comprado"
-  #   redirect_to register_path(@register)
-  # end
-
-  # def sell_response
-  # end
-
   def payment
-    @register = Register.find(params[:id])
-    @register.product.available = false
   end
 
   def confirmation
+    @register = Register.find(params[:id])
+    product = @register.product
+    product.available = false
+    product.save
   end
 
   def my_registers
-    @registers = Register.where(user_id: current_user.id)#, status: "solicitado")
+    products = Product.where(user_id: current_user.id)
+    @registers = []
+    products.each do |prod|
+      @registers += prod.registers
+    end
   end
 
   def accept
