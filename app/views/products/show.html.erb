@@ -1,25 +1,65 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
-<%= @product.name %>
-<%= @product.year %>
-<%= @product.brand %>
-<%= @product.operator %>
-<%= @product.model %>
-<%= @product.description %>
-<%= @product.status %>
-<%= @product.price %>
-<%= @product.available %>
-<% @product.photos.each do |photo| %>
-  <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
-<% end %>
+<div class="container">
+  <div class="col-12 my-3">
 
-<br>
-<%= button_to "Delete product", @product, method: :delete if policy(@product).destroy? %>
-<br>
-<% if policy(@product).edit? %>
-  <%= link_to("Edit product", edit_product_path(@product.id)) %>
-<% end %>
-<br>
-<%= link_to("Back to products", products_path) %>
-<br>
-<%= link_to "Buy product", product_registers_path(@product.id), data: { turbo_method: "post" } %>
+    <h1 class="d-flex justify-content-center w-100"><%= @product.name %></h1>
+
+    <% if @product.photos.size == 1 %>
+      <div class="d-flex justify-content-center w-100">
+        <%= cl_image_tag @product.photos.first.key, height: 300, width: 400, crop: :fill %>
+      </div>
+
+    <% elsif @product.photos.size > 1 %>
+      <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+          <div class="carousel-item active" data-bs-interval="10000">
+            <div class="d-flex justify-content-center w-100">
+              <%= cl_image_tag @product.photos.first.key, height: 300, width: 400, crop: :fill %>
+            </div>
+          </div>
+
+          <% (1...@product.photos.size).to_a.each do |i|  %>
+            <div class="carousel-item" data-bs-interval="2000">
+              <div class="d-flex justify-content-center w-100">
+                <%= cl_image_tag @product.photos[i].key, height: 300, width: 400, crop: :fill %>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon .bg-dark text-primary" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <% end %>
+
+    <div class="my-3">
+      <p>Brand: <%= @product.brand %></p>
+      <p>Model: <%= @product.model %></p>
+      <p>Year: <%= @product.year %></p>
+      <p>Operator: <%= @product.operator %></p>
+      <p>Price: $<%= @product.price.to_i %></p>
+      <p>Status: <%= @product.status %></p>
+      <p>Address: <%= @product.user.address %></p>
+      <p>Description: <%= @product.description %></p>
+    </div>
+
+    <div class="d.flex mt-3">
+      <% if policy(@product).edit? %>
+        <%= button_to "Edit product", edit_product_path(@product.id), class: "btn btn-primary" %>
+      <% end %>
+      <%= button_to "Delete product", @product, class: "btn btn-danger my-3",method: :delete if policy(@product).destroy? %>
+    </div>
+
+    <% if @product.user != current_user %>
+      <%= link_to "Buy product", product_registers_path(@product.id), class: "btn btn-success", data: { turbo_method: "post" } %>
+    <% end %>
+
+  </div>
+</div>

@@ -1,10 +1,36 @@
-<h1>Products#my_products</h1>
-<ul>
-  <% @products.each do |product| %>
-    <li><%= link_to(product.name, product_path(product.id)) %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="col-12 my-3">
 
-<%= link_to("New product", new_product_path) %>
-<br>
-<%= link_to("Back to products", products_path) %>
+    <%= form_with url: products_path, method: :get, class: "d-flex mt-3" do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find a product"
+      %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+
+    <div class="d-flex justify-content-between mt-3">
+      <%= link_to "New product", new_product_path, class: "btn btn-primary" %>
+      <%= link_to "My purchase requests", my_registers_registers_path, class: "btn btn-primary" %>
+    </div>
+
+    <% @products.where(available: true).each do |product| %>
+      <%= link_to product_path(product.id), style: "text-decoration:none; color:inherit;" do %>
+        <div class="card-product mt-3" <% link_to("hola", product_path(product.id)) %>>
+          <% if product.photos.size == 0 %>
+            <img src="https://www.pngarts.com/files/4/Phone-PNG-Pic.png" />
+          <% else %>
+            <%= cl_image_tag product.photos.first.key %>
+          <% end %>
+          <div class="card-product-infos">
+            <h2><%= product.name %></h2>
+            <p>Model: <%= product.model %> brand: <%= product.brand %> Price: $<%= product.price %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+
+  </div>
+</div>
