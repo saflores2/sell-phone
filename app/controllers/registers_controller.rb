@@ -19,6 +19,8 @@ class RegistersController < ApplicationController
   # end
 
   def payment
+    @register = Register.find(params[:id])
+    @register.product.available = false
   end
 
   def confirmation
