@@ -1,13 +1,13 @@
 <h1>Products#index</h1>
 <p>Find me in app/views/products/index.html.erb</p>
 <ul>
-  <% @products.each do |product| %>
+  <% @products.where(available: true).each do |product| %>
     <li><%= link_to(product.name, product_path(product.id)) %></li>
   <% end %>
 </ul>
 
 <%= link_to("New product", new_product_path) %>
 <br>
-<% if @products.where(user_id: current_user.id).size > 0 %>
+<%# <% if @products.where(user_id: current_user.id).size > 0 %> %>
   <%= link_to("My products", my_products_products_path) %>
-<% end %>
+<%# <% end %> %>

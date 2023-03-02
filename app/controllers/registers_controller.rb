@@ -1,4 +1,5 @@
 class RegistersController < ApplicationController
+  before_action :skip_authorization
   def create
     @register = Register.new
     @register.user = current_user
@@ -17,6 +18,8 @@ class RegistersController < ApplicationController
   end
 
   def payment
+    @register = Register.find(params[:id])
+    @register.product.available = false
   end
 
   def confirmation
