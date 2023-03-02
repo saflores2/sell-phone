@@ -1,12 +1,28 @@
-<h1>Mis solicitudes de compra</h1>
-<ul>
+<%# <ul>
   <% @registers.each do |reg| %>
-    <li><%= reg.product.name%> $<%= reg.product.price%> <%= reg.created_at%> Estado: <%= reg.status%></li>
-    <% if reg.status == "solicitado" %>
-      <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch) %> <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch) %>
+    <%# <li><%= reg.product.name $<%= reg.product.price <%= reg.created_at Estado: <%= reg.status</li>%>
+    <%# <% if reg.status == "solicitado" %>
+      <%# <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch) <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch) %>
+    <%# <% end %>
+  <%# <% end %>
+<%# </ul> %>
+
+<%# <br>
+<%= link_to("Back to products", products_path) %>
+<div class= "container">
+  <h1>Mis solicitudes de compra</h1>
+  <ul class="list-group">
+    <% @registers.each do |reg| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= reg.product.name%> $<%= reg.product.price%> <%= reg.created_at%> Estado: <%= reg.status%>
+        <% if reg.status == "solicitado" %>
+          <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch, class: :"btn btn-primary") %>
+          <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch, class: :"btn btn-primary") %>
+        <% end %>
+      </li>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
+</div>
 
 <br>
 <%= link_to("Back to products", products_path) %>
