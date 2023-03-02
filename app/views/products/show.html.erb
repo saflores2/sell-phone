@@ -52,7 +52,7 @@
 
     <div class="d.flex mt-3">
       <% if policy(@product).edit? %>
-        <%= button_to "Edit product", edit_product_path(@product.id), class: "btn btn-primary" %>
+        <%= link_to "Edit product", edit_product_path(@product.id), class: "btn btn-primary" %>
       <% end %>
       <%= button_to "Delete product", @product, class: "btn btn-danger my-3",method: :delete if policy(@product).destroy? %>
     </div>
