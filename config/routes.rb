@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get :response
       get :payment
       get :confirmation
+      patch :accept
+      patch :reject
     end
 
     collection do
