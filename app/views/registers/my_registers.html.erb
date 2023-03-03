@@ -1,28 +1,29 @@
-<%# <ul>
-  <% @registers.each do |reg| %>
-    <%# <li><%= reg.product.name $<%= reg.product.price <%= reg.created_at Estado: <%= reg.status</li>%>
-    <%# <% if reg.status == "solicitado" %>
-      <%# <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch) <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch) %>
-    <%# <% end %>
-  <%# <% end %>
-<%# </ul> %>
-
-<%# <br>
-<%= link_to("Back to products", products_path) %>
 <div class= "container">
   <h1>Mis solicitudes de compra</h1>
   <ul class="list-group">
     <% @registers.each do |reg| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= reg.product.name%> $<%= reg.product.price%> <%= reg.created_at%> Estado: <%= reg.status%>
         <% if reg.status == "solicitado" %>
-          <%= button_to("Aceptar", accept_register_path(reg.id), method: :patch, class: :"btn btn-primary") %>
-          <%= button_to("Rechazar", reject_register_path(reg.id), method: :patch, class: :"btn btn-primary") %>
+          <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-secondary">
+            <%= reg.product.name%> $<%= reg.product.price%>
+          <%= button_to("Accept", accept_register_path(reg.id), method: :patch, class: "btn btn-success") %>
+          <%= button_to("Decline", reject_register_path(reg.id), method: :patch, class: "btn btn-danger") %>
+        <% end %>
+        <% if reg.status == "aceptado" %>
+          <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-info">
+          <%= reg.product.name%> $<%= reg.product.price%>
+          <p>Waiting for payment</p>
+        <% end %>
+        <% if reg.status == "rechazado" %>
+          <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
+          <%= reg.product.name%> $<%= reg.product.price%>
+        <% end %>
+        <% if reg.status == "pagado" %>
+          <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
+          <%= reg.product.name%> $<%= reg.product.price%>
+          <p>Product sold </p>
         <% end %>
       </li>
     <% end %>
   </ul>
+  <%= link_to("Back to products", products_path, class: "btn btn-secondary") %>
 </div>
-
-<br>
-<%= link_to("Back to products", products_path) %>

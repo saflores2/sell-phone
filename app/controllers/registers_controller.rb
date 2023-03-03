@@ -10,10 +10,14 @@ class RegistersController < ApplicationController
   end
 
   def payment
+    @register = Register.find(params[:id])
+    @register.save if @register.status == "aceptado" || @register.status == "pagado"
   end
 
   def confirmation
     @register = Register.find(params[:id])
+    @register.status = "pagado"
+    @register.save
     product = @register.product
     product.available = false
     product.save
