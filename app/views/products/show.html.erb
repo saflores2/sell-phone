@@ -1,11 +1,30 @@
+<style>
+  .container {
+    width: 120%;
+    height: 120%;
+    padding: 40px;
+    margin: 3 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 13px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    margin-top: 90px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  }
+</style>
+
 <div class="container">
   <div class="col-12 my-3">
 
-    <h1 class="d-flex justify-content-center w-100"><%= @product.name %></h1>
+  <h1 class="d-flex justify-content-center w-100" style="color: white; font-size: 4em;"><%= @product.name %></h1>
 
     <% if @product.photos.size == 1 %>
       <div class="d-flex justify-content-center w-100">
-        <%= cl_image_tag @product.photos.first.key, height: 300, width: 400, crop: :fill %>
+        <%= cl_image_tag @product.photos.first.key, height: 400, width: 400, crop: :fill %>
       </div>
 
     <% elsif @product.photos.size > 1 %>
@@ -14,17 +33,18 @@
 
           <div class="carousel-item active" data-bs-interval="10000">
             <div class="d-flex justify-content-center w-100">
-              <%= cl_image_tag @product.photos.first.key, height: 300, width: 400, crop: :fill %>
+              <%= cl_image_tag @product.photos.first.key, height: 400, width: 400, crop: :fill %>
             </div>
           </div>
 
-          <% (1...@product.photos.size).to_a.each do |i|  %>
-            <div class="carousel-item" data-bs-interval="2000">
-              <div class="d-flex justify-content-center w-100">
-                <%= cl_image_tag @product.photos[i].key, height: 300, width: 400, crop: :fill %>
+
+            <% (1...@product.photos.size).to_a.each do |i|  %>
+              <div class="carousel-item" data-bs-interval="2000">
+                <div class="d-flex justify-content-center w-100">
+                  <%= cl_image_tag @product.photos[i].key, height: 400, width: 400, crop: :fill %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
 
         </div>
 
@@ -39,26 +59,26 @@
       </div>
     <% end %>
 
-    <div class="my-3">
-      <p>Brand: <%= @product.brand %></p>
-      <p>Model: <%= @product.model %></p>
-      <p>Year: <%= @product.year %></p>
-      <p>Operator: <%= @product.operator %></p>
-      <p>Price: $<%= @product.price %></p>
-      <p>Status: <%= @product.status %></p>
-      <p>Address: <%= @product.user.address %></p>
-      <p>Description: <%= @product.description %></p>
-    </div>
+  <div class="my-3 mt-4">
+      <p style="color: white; font-size: 25px;">Brand: <%= @product.brand %></p>
+      <p style="color: white; font-size: 25px;">Model: <%= @product.model %></p>
+      <p style="color: white; font-size: 25px;">Year: <%= @product.year %></p>
+      <p style="color: white; font-size: 25px;">Operator: <%= @product.operator %></p>
+      <p style="color: white; font-size: 25px;">Price: $<%= @product.price %></p>
+      <p style="color: white; font-size: 25px;">Status: <%= @product.status %></p>
+      <p style="color: white; font-size: 25px;">Address: <%= @product.user.address %></p>
+      <p style="color: white; font-size: 25px;">Description: <%= @product.description %></p>
+  </div>
 
     <div class="d.flex mt-3">
       <% if policy(@product).edit? %>
-        <%= link_to "Edit product", edit_product_path(@product.id), class: "btn btn-primary" %>
+        <%= link_to "Edit product", edit_product_path(@product.id), class: "button-29" %>
       <% end %>
-      <%= button_to "Delete product", @product, class: "btn btn-danger my-3",method: :delete if policy(@product).destroy? %>
+      <%= button_to "Delete product", @product, class: "button-29", method: :delete, style: "margin-top: 9px;" if policy(@product).destroy? %>
     </div>
 
     <% if @product.user != current_user %>
-      <%= link_to "Buy product", product_registers_path(@product.id), class: "btn btn-success", data: { turbo_method: "post" } %>
+      <%= link_to "Buy product", product_registers_path(@product.id), class: "button-29", data: { turbo_method: "post" }, style: "margin-top: 9px;" %>
     <% end %>
 
   </div>

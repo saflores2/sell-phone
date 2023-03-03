@@ -34,9 +34,9 @@
               <div class="card mb-4 shadow-sm transition: transform 0.2s">
                 <%= link_to product_path(product.id), style: "text-decoration:none; color:inherit;" do %>
                   <% if product.photos.size == 0 %>
-                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="..." height=300px width=200px>
                   <% else %>
-                    <div class="card-img-top"><%= cl_image_tag product.photos.first.key, class: "card-img-top", height: 300, width: 300, crop: :fill %></div>
+                    <div class="card-img-top"><%= cl_image_tag product.photos.first.key, class: "card-img-top", :size => "200x300", crop: :fill %></div>
                   <% end %>
                   <div class="card-img-overlay"></div>
                   <div class="card-body">
