@@ -28,7 +28,7 @@
 
     <% @products.where(available: true).each do |product| %>
       <%= link_to product_path(product.id), style: "text-decoration:none; color:inherit;" do %>
-        <div class="card-product mt-3" <% link_to("hola", product_path(product.id)) %>>
+        <div class="card-product mt-3">
           <% if product.photos.size == 0 %>
             <img src="https://www.pngarts.com/files/4/Phone-PNG-Pic.png" />
           <% else %>
