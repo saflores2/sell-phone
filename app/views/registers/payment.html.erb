@@ -28,6 +28,8 @@
             <div class="col-12 mb-4">
               <% if @register.status == "aceptado" %>
                 <%= link_to "Pay", confirmation_register_path, class: "btn btn-primary" %>
+              <% elsif @register.status == "rechazado" %>
+                <h4>Sorry, you request was rejected...</h4>
               <% else %>
                 <h4>Waiting for seller confirmation...</h4>
               <% end %>

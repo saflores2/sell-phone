@@ -12,10 +12,10 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link" %>
+            <%= link_to "Home", root_path, class: "nav-link", style: "color: #f0f8ff; font-size: 20px; font-weight: bold;" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Products", products_path, class: "nav-link" %>
+            <%= link_to "Products", products_path, class: "nav-link", style: "color: #f0f8ff; font-size: 20px; font-weight: bold;" %>
           </li>
           <li class="nav-item dropdown">
             <%= image_tag "https://w7.pngwing.com/pngs/505/761/png-transparent-login-computer-icons-avatar-icon-monochrome-black-silhouette.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
